@@ -4,10 +4,27 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-
 var app = express();
+var mysql = require('mysql');
 
-// view engine setup
+var connection = mysql.createConnection({
+    host    : 'localhost',
+    user    : 'hack_2017',
+    password: '0000',
+    database: 'hack_2017'
+});
+
+connection.connect(function(err){
+  if(!err) {
+    console.log("Database is connected");
+  }
+  else {
+    console.log("Error connecting database");
+  }
+});
+
+
+
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
@@ -36,4 +53,11 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
+
+
+
+
+
 module.exports = app;
+
+
