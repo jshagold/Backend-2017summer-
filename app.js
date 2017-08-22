@@ -10,10 +10,18 @@ var mysql = require('mysql');
 var connection = mysql.createConnection({
     host    : 'localhost',
     user    : 'hack_2017',
-    password: '0000'
+    password: '0000',
+    database: 'hack_2017'
 });
 
-connection.connect();
+connection.connect(function(err){
+  if(!err) {
+    console.log("Database is connected");
+  }
+  else {
+    console.log("Error connecting database");
+  }
+});
 
 
 
@@ -44,6 +52,11 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+
+
+
+
 
 module.exports = app;
 
