@@ -4,10 +4,19 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-
 var app = express();
+var mysql = require('mysql');
 
-// view engine setup
+var connection = mysql.createConnection({
+    host    : 'localhost',
+    user    : 'hack_2017',
+    password: '0000'
+});
+
+connection.connect();
+
+
+
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
@@ -37,3 +46,5 @@ app.use(function(err, req, res, next) {
 });
 
 module.exports = app;
+
+
