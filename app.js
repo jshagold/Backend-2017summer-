@@ -1,12 +1,12 @@
-var express = require('express');
-var path = require('path');
-var favicon = require('serve-favicon');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
-var app = express();
-var userRouter = require('./routes/sign_up');
-var connection = require('./connect')
+var express = require('express')
+var path = require('path')
+var favicon = require('serve-favicon')
+var logger = require('morgan')
+var cookieParser = require('cookie-parser')
+var bodyParser = require('body-parser')
+var app = express()
+var userRouter = require('./routes/sign/sign_up')
+var infoRouter = require('./routes/index')
 
 
 
@@ -19,7 +19,9 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 
-app.use("/user", userRouter);
+app.use("/user", userRouter)
+app.use("/index", infoRouter)
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

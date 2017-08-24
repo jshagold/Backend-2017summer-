@@ -3,7 +3,7 @@
  */
 var express = require('express')
 var router = express.Router()
-var connection = require('../connect')
+var connection = require('../../connect')
 
 
 
@@ -29,15 +29,6 @@ router.post('/sign', function (req, res, next) {
     })
 })
 
-function () {
-    connection.query("asdf").then( user => {
-        var userId = user._id
-        connection.query()
-    })
-    connection.query("insert into find_job",[userId],function() {
-
-    })
-}
 
 
 
