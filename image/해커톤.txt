@@ -1,0 +1,195 @@
+<구인sns>
+
+[1] 자유게시판
+	1. 회원 -> 프로필
+	2. 제목, 내용, 댓글(답글)
+[2] 구인
+	1. 종류
+	2. 장소
+	3. 시간
+	4. 개인메세지, 투표
+[3] 프로필
+	1. 이름
+	2. 전화번호 - 학번
+	3. 이메일
+
+
+
+
+
+
+
+
+
+(1) 안드로이드
+	1. 프론트
+	2. 백
+
+
+
+(2) 서버 - 백(node.js)
+	url을 어떻게짤지
+	mysql와 node.js연결법(환경설정)
+
+
+
+github
+repository2개 파기(안드로이드, 서버)
+
+
+
+gitignore가 뭔지 어떻게사용하는지 왜사용하는지 알아와.
+
+
+
+1시까지
+
+
+
+
+
+
+
+
+
+pool?
+
+
+
+
+
+
+
+[draw.io] => DB테이블표 그려졍있다.
+
+
+[테이블 종류]
+user
+
+post
+
+comment
+
+post_comment
+
+find_job
+
+find_job_comment
+
+category
+
+vote
+
+tbl_select
+
+tbl_select_user
+
+
+
+
+[ORM]
+object relational mapping
+
+
+[mysql query]
+
+CREATE TABLE user (
+	_id INT NOT NULL AUTO_INCREMENT,
+	name varchar(32),
+	phone_number char(11),
+	email varchar(32),
+	password varchar(32),
+	PRIMARY KEY (_id)
+);
+
+CREATE TABLE category (
+	_id INT NOT NULL AUTO_INCREMENT,
+	name varchar(20),
+	PRIMARY KEY (_id)
+);
+
+create table post (
+	_id int not null auto_increment,
+	title varchar(32),
+	content text(200),
+	user_id int not null,
+	foreign key(user_id)
+	references user(_id),
+	primary key (_id)
+);
+
+CREATE TABLE comment (
+	_id int not null auto_increment,
+	content text(50),
+	user_id int not null,
+	foreign key(user_id)
+	references user(_id),
+	primary key (_id)
+);
+
+create table post_comment (
+	_id int not null auto_increment,
+	post_id int not null,
+	foreign key(post_id)
+	references post(_id),
+	comment_id int not null,
+	foreign key(comment_id)
+	references comment(_id),
+	primary key (_id)
+);
+
+create table find_job (
+	_id int not null auto_increment,
+	category_id int not null,
+	foreign key(category_id)
+	references category(_id),
+	user_id int not null,
+	foreign key(user_id)
+	references user(_id),
+	title varchar(32) not null,
+	content text(200),
+	latitude double not null,
+	longitute double not null,
+	start_time varchar(9) not null,
+	end_time varchar(9) not null,
+	primary key (_id)
+);
+
+create table find_job_comment (
+	_id int not null auto_increment,
+	find_job_id int not null,
+	foreign key(find_job_id)
+	references find_job(_id),
+	comment_id int not null,
+	foreign key(comment_id)
+	references comment(_id),
+	primary key(_id)
+);
+
+create table vote (
+	_id int not null auto_increment,
+	find_job_id int not null,
+	foreign key(find_job_id)
+	references find_job(_id),
+	primary key(_id)
+);
+
+create table tbl_select (
+	_id int not null auto_increment,
+	content varchar(50),
+	vote_id int not null,
+	foreign key(vote_id)
+	references vote(_id),
+	primary key(_id)
+);
+
+create table tbl_select_user (
+	_id int not null auto_increment,
+	tbl_select_id int not null,
+	foreign key(tbl_select_id)
+	references tbl_select(_id),
+	user_id int not null,
+	foreign key(user_id)
+	references user(_id),
+	primary key(_id)
+);
