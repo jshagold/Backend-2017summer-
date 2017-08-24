@@ -3,8 +3,8 @@
  */
 var express = require('express')
 var router = express.Router()
-var postRouter = require('./find_people/create')
+var postRouter = require('./find_people/posts')
 
-router.use("/find", postRouter);
+router.use("/posts", postRouter);
 
 module.exports = router
