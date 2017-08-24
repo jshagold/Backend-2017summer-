@@ -5,24 +5,8 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var app = express();
-var mysql = require('mysql');
-
-var connection = mysql.createConnection({
-    host    : 'localhost',
-    user    : 'hack_2017',
-    password: '0000',
-    database: 'hack_2017'
-});
-
-connection.connect(function(err){
-  if(!err) {
-    console.log("Database is connected");
-  }
-  else {
-    console.log("Error connecting database");
-  }
-});
-
+var userRouter = require('./routes/sign_up');
+var connection = require('./connect')
 
 
 
@@ -34,6 +18,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+
+app.use("/user", userRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -50,7 +36,7 @@ app.use(function(err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
-  res.render('error');
+  res.send('error');
 });
 
 
