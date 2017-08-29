@@ -4,7 +4,10 @@
 var express = require('express')
 var router = express.Router()
 var postRouter = require('./find_people/posts')
+var freePostRouter = require('./free_board/posts')
 
-router.use("/posts", postRouter);
+router.use("/findposts", postRouter)
+router.use("/freeposts", freePostRouter)
+
 
 module.exports = router
