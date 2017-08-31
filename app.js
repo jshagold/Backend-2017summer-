@@ -6,7 +6,16 @@ var cookieParser = require('cookie-parser')
 var bodyParser = require('body-parser')
 var app = express()
 var userRouter = require('./routes/sign/sign_up')
+var loginRouter = require('./routes/sign/sign_in')
 var infoRouter = require('./routes/index')
+var session = require('express-session')
+
+// session
+app.use(session({
+    secret: '!@#!!!asqq!@#!##',
+    resave: false,
+    saveUninitialized: true
+}))
 
 
 
@@ -20,6 +29,26 @@ app.use(express.static(path.join(__dirname, 'public')))
 
 
 app.use("/user", userRouter)
+app.use("/login", loginRouter)
+
+
+//session test
+app.get("/check/login", (req,res,next) => {
+    var session = req.session
+    console.log(session.username)
+    if (session.username) {
+        res.send(session.username)
+    } else {
+        res.send("not logined")
+    }
+})
+app.get("/test", (req,res,next) => {
+    res.send("<html><head></head><body><form action='/login', method='post'>" +
+        "<input type='text' name='email'/>" +
+        "<input type='text' name='password'/> " +
+            "<input type='submit'/> "+
+        "</form></body></html>")
+})
 app.use("/", infoRouter)
 
 

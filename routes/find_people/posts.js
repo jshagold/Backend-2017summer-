@@ -54,7 +54,7 @@ router.get('/list/:id', function(req, res, next) {
             list.push(listvalue)
         })
         JSON.stringify(list)
-        res.send(list)
+        res.json(list)
     })
 })
 
